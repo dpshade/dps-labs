@@ -1,110 +1,172 @@
 ---
-const music = {
-  albums: ["Pacific (2019)", "Glimpse (2020)", "Serenity (2021)"],
-  singles: ["Nightfall (2019)", "Vantage (2022)"],
-  production: "Walk Away — Nick Metry",
-  links: {
-    apple: "https://music.apple.com/us/artist/dylan-shade/1475065308",
-    spotify: "https://open.spotify.com/artist/dylan-shade"
-  }
-};
+const albums = [
+  { 
+    title: "Pacific", 
+    year: "2019", 
+    type: "Album",
+    art: "/images/albums/Pacific.jpeg",
+    spotify: "https://open.spotify.com/album/pacific",
+    apple: "https://music.apple.com/album/pacific"
+  },
+  { 
+    title: "Nightfall", 
+    year: "2019", 
+    type: "Single",
+    art: "/images/albums/Nightfall.jpg",
+    spotify: "https://open.spotify.com/track/nightfall",
+    apple: "https://music.apple.com/track/nightfall"
+  },
+  { 
+    title: "Glimpse", 
+    year: "2020", 
+    type: "Album",
+    art: "/images/albums/Glimpse.jpeg",
+    spotify: "https://open.spotify.com/album/glimpse",
+    apple: "https://music.apple.com/album/glimpse"
+  },
+  { 
+    title: "Serenity", 
+    year: "2021", 
+    type: "Album",
+    art: "/images/albums/Serenity.jpeg",
+    spotify: "https://open.spotify.com/album/serenity",
+    apple: "https://music.apple.com/album/serenity"
+  },
+];
 
 const compositions = [
-  "The Unquiet Grave (Complete Song Cycle) — SATB divisi Choir",
-  "Mount Targon — Full Orchestra",
-  "Beyond the Sea, Mad's Orchestra, Midnight, Autumn Dusk, The Stars Above, The Battle of Blenheim — SATB Choir"
+  { title: "The Unquiet Grave (Complete Song Cycle)", arrangement: "SATB divisi Choir", id: "1874113" },
+  { title: "Mount Targon - Score Only", arrangement: "Full Orchestra", id: "1874135" },
+  { title: "The Stars Above", arrangement: "SATB Choir", id: "1874123" },
+  { title: "Beyond the Sea", arrangement: "SATB Choir", id: "1874133" },
+  { title: "Mad's Orchestra", arrangement: "SATB Choir", id: "1874128" },
+  { title: "Midnight", arrangement: "SATB Choir", id: "1874127" },
+  { title: "Autumn Dusk", arrangement: "SATB Choir", id: "1874126" },
+  { title: "The Battle of Blenheim", arrangement: "SATB Choir", id: "1874104" },
 ];
 
 const film = {
   title: "Crossing Over",
   year: "2022",
   role: "Sound Supervisor/Designer",
-  links: {
-    imdb: "https://www.imdb.com/title/tt17321224/",
-    youtube: "https://www.youtube.com/watch?v=gkw653LYWP0"
-  }
+  genre: "Horror/Sci-fi",
+  imdb: "https://www.imdb.com/title/tt17321224/",
+  youtube: "https://www.youtube.com/watch?v=gkw653LYWP0"
+};
+
+const links = {
+  apple: "https://music.apple.com/us/artist/dylan-shade/1475065308",
+  spotify: "https://open.spotify.com/artist/dylan-shade",
+  youtube: "https://www.youtube.com/@dylanpshade",
+  sheetMusic: "https://www.sheetmusicdirect.com/Search.aspx?query=Dylan+Shade"
 };
 ---
 
-<section id="creative" class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">Beyond Code</span>
-      <h2 class="section-title">Creative Work</h2>
+<section class="creative-section">
+  <div class="creative-container">
+    <!-- Header -->
+    <div class="creative-header">
+      <div class="title-container">
+        <h2 class="creative-title">
+          <span class="title-word">Crea</span><span class="title-word title-accent">tive</span>
+        </h2>
+        <span class="title-subtext">// beyond code</span>
+      </div>
     </div>
 
-    <div class="creative-grid">
-      <div class="creative-card">
-        <div class="creative-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 18V5l12-2v13" />
-            <circle cx="6" cy="18" r="3" />
-            <circle cx="18" cy="16" r="3" />
-          </svg>
+    <!-- Music Section - Album Art Grid -->
+    <div class="music-section">
+      <div class="section-row">
+        <div class="row-header">
+          <span class="row-label">Music</span>
+          <span class="row-count">{albums.length} releases</span>
         </div>
-        <h3 class="creative-title">Music</h3>
-        <div class="creative-content">
-          <p class="creative-subtitle">Albums</p>
-          <ul class="creative-list">
-            {music.albums.map(a => <li>{a}</li>)}
-          </ul>
-          <p class="creative-subtitle">Singles</p>
-          <ul class="creative-list">
-            {music.singles.map(s => <li>{s}</li>)}
-          </ul>
-          <p class="creative-subtitle">Production</p>
-          <p class="creative-text">{music.production}</p>
+        
+        <div class="album-grid">
+          {albums.map((album, i) => (
+            <a href={links.spotify} target="_blank" rel="noopener" class="album-card" style={`--card-index: ${i}`}>
+              <div class="album-art-wrapper">
+                <img src={album.art} alt={album.title} class="album-art" />
+                <div class="album-overlay">
+                  <div class="play-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="album-info">
+                <span class="album-title">{album.title}</span>
+                <span class="album-meta">{album.type} · {album.year}</span>
+              </div>
+            </a>
+          ))}
         </div>
-        <div class="creative-links">
-          <a href={music.links.apple} target="_blank" rel="noopener">Apple Music</a>
-          <a href={music.links.spotify} target="_blank" rel="noopener">Spotify</a>
-          <a href="https://www.youtube.com/@dylanpshade" target="_blank" rel="noopener">YouTube</a>
+
+        <div class="music-links">
+          <a href={links.apple} target="_blank" rel="noopener" class="music-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/>
+            </svg>
+            Apple Music
+          </a>
+          <a href={links.spotify} target="_blank" rel="noopener" class="music-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+            </svg>
+            Spotify
+          </a>
+          <a href={links.youtube} target="_blank" rel="noopener" class="music-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            YouTube
+          </a>
         </div>
       </div>
+    </div>
 
-      <div class="creative-card">
-        <div class="creative-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-            <polyline points="14 2 14 8 20 8" />
-            <line x1="16" y1="13" x2="8" y2="13" />
-            <line x1="16" y1="17" x2="8" y2="17" />
-          </svg>
+    <!-- Bottom Row: Compositions + Film -->
+    <div class="bottom-row">
+      <!-- Compositions -->
+      <div class="comp-section">
+        <div class="row-header">
+          <span class="row-label">Compositions</span>
+          <span class="row-count">{compositions.length} published</span>
         </div>
-        <h3 class="creative-title">Compositions</h3>
-        <div class="creative-content">
-          <p class="creative-text">8 published choral works through ArrangeMe/Sheet Music Plus</p>
-          <ul class="creative-list">
-            {compositions.map(c => <li>{c}</li>)}
-          </ul>
+        <div class="comp-grid">
+          {compositions.map(comp => (
+            <a 
+              href={`https://www.sheetmusicdirect.com/se/ID_No/${comp.id}/Product.aspx`} 
+              target="_blank" 
+              rel="noopener" 
+              class="comp-item"
+            >
+              <span class="comp-title">{comp.title}</span>
+              <span class="comp-arrangement">{comp.arrangement}</span>
+            </a>
+          ))}
         </div>
-        <div class="creative-links">
-          <a href="https://www.sheetmusicdirect.com/Search.aspx?query=Dylan+Shade" target="_blank" rel="noopener">Sheet Music</a>
-        </div>
+        <a href={links.sheetMusic} target="_blank" rel="noopener" class="comp-link">
+          View all on Sheet Music Direct
+        </a>
       </div>
 
-      <div class="creative-card">
-        <div class="creative-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18" />
-            <line x1="7" y1="2" x2="7" y2="22" />
-            <line x1="17" y1="2" x2="17" y2="22" />
-            <line x1="2" y1="12" x2="22" y2="12" />
-            <line x1="2" y1="7" x2="7" y2="7" />
-            <line x1="2" y1="17" x2="7" y2="17" />
-            <line x1="17" y1="17" x2="22" y2="17" />
-            <line x1="17" y1="7" x2="22" y2="7" />
-          </svg>
+      <!-- Film -->
+      <div class="film-section">
+        <div class="row-header">
+          <span class="row-label">Film</span>
         </div>
-        <h3 class="creative-title">Film</h3>
-        <div class="creative-content">
-          <p class="creative-highlight">{film.title} ({film.year})</p>
-          <p class="creative-text">{film.role}</p>
-          <p class="creative-text">Horror/Sci-fi short film</p>
-        </div>
-        <div class="creative-links">
-          <a href={film.links.imdb} target="_blank" rel="noopener">IMDB</a>
-          <a href={film.links.youtube} target="_blank" rel="noopener">YouTube</a>
+        <div class="film-card">
+          <div class="film-info">
+            <span class="film-title">{film.title}</span>
+            <span class="film-meta">{film.role} · {film.year}</span>
+            <span class="film-genre">{film.genre}</span>
+          </div>
+          <div class="film-links">
+            <a href={film.imdb} target="_blank" rel="noopener">IMDB</a>
+            <a href={film.youtube} target="_blank" rel="noopener">Watch</a>
+          </div>
         </div>
       </div>
     </div>
@@ -112,134 +174,351 @@ const film = {
 </section>
 
 <style>
-  .section-header {
-    margin-bottom: var(--space-12);
-  }
-
-  .section-label {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-accent-gold);
-    margin-bottom: var(--space-3);
-  }
-
-  .section-title {
-    font-size: clamp(1.75rem, 4vw, 2.25rem);
-  }
-
-  .creative-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-  @media (max-width: 900px) {
-    .creative-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 640px) {
-    .creative-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .creative-card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
+  .creative-section {
+    padding: var(--space-8) var(--space-8);
+    height: 100%;
     display: flex;
     flex-direction: column;
   }
 
-  .creative-icon {
-    width: 48px;
-    height: 48px;
+  .creative-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-accent-gold-dim);
-    border-radius: var(--radius-md);
-    color: var(--color-accent-gold);
-    margin-bottom: var(--space-4);
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  /* Header */
+  .creative-header {
+    flex-shrink: 0;
+  }
+
+  .title-container {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
   }
 
   .creative-title {
-    font-size: 1.25rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    display: flex;
+    gap: 0.05em;
+    margin: 0;
+  }
+
+  .title-word {
+    display: inline-block;
+  }
+
+  .title-accent {
+    color: var(--color-accent-gold);
+    position: relative;
+  }
+
+  .title-accent::after {
+    content: '';
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-accent-gold);
+  }
+
+  .title-subtext {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.6875rem;
+    color: var(--color-ink-muted);
+    opacity: 0.4;
+  }
+
+  /* Row headers */
+  .row-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .row-label {
+    font-size: 0.5625rem;
     font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  .row-count {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.5rem;
+    color: var(--color-ink-muted);
+    opacity: 0.4;
+  }
+
+  /* Music Section */
+  .music-section {
+    flex-shrink: 0;
+  }
+
+  .album-grid {
+    display: flex;
+    gap: var(--space-4);
     margin-bottom: var(--space-4);
   }
 
-  .creative-content {
+  .album-card {
     flex: 1;
+    max-width: 180px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
   }
 
-  .creative-subtitle {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--color-ink-muted);
-    margin-top: var(--space-4);
-    margin-bottom: var(--space-2);
-  }
-
-  .creative-subtitle:first-child {
-    margin-top: 0;
-  }
-
-  .creative-list {
-    list-style: none;
-  }
-
-  .creative-list li {
-    font-size: 0.875rem;
-    color: var(--color-ink-light);
-    padding-left: var(--space-4);
+  .album-art-wrapper {
     position: relative;
-    margin-bottom: var(--space-1);
+    aspect-ratio: 1;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
   }
 
-  .creative-list li::before {
-    content: '·';
+  .album-card:hover .album-art-wrapper {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .album-art {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 400ms var(--ease-out);
+  }
+
+  .album-card:hover .album-art {
+    transform: scale(1.05);
+  }
+
+  .album-overlay {
     position: absolute;
-    left: 0;
-    color: var(--color-ink-muted);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 200ms var(--ease-out);
   }
 
-  .creative-text {
-    font-size: 0.875rem;
-    color: var(--color-ink-light);
-    line-height: 1.5;
+  .album-card:hover .album-overlay {
+    opacity: 1;
   }
 
-  .creative-highlight {
-    font-size: 1rem;
+  .play-button {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a1a1a;
+    transform: scale(0.8);
+    transition: transform 200ms var(--ease-bounce);
+  }
+
+  .album-card:hover .play-button {
+    transform: scale(1);
+  }
+
+  .play-button svg {
+    margin-left: 2px;
+  }
+
+  .album-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .album-title {
+    font-size: 0.8125rem;
     font-weight: 600;
     color: var(--color-ink);
-    margin-bottom: var(--space-2);
   }
 
-  .creative-links {
+  .album-meta {
+    font-size: 0.625rem;
+    color: var(--color-ink-muted);
+  }
+
+  /* Music Links */
+  .music-links {
     display: flex;
     gap: var(--space-4);
-    margin-top: var(--space-6);
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--color-border-subtle);
   }
 
-  .creative-links a {
-    font-size: 0.875rem;
+  .music-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: 0.6875rem;
     font-weight: 500;
+    color: var(--color-ink-muted);
+    text-decoration: none;
+    transition: color 200ms;
+  }
+
+  .music-link:hover {
     color: var(--color-accent-gold);
   }
 
-  .creative-links a:hover {
+  .music-link svg {
+    opacity: 0.6;
+  }
+
+  /* Bottom Row */
+  .bottom-row {
+    display: flex;
+    gap: var(--space-8);
+    flex: 1;
+    min-height: 0;
+  }
+
+  .comp-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .comp-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: background 200ms, transform 200ms;
+  }
+
+  .comp-item:hover {
+    background: var(--color-surface-hover, rgba(255, 255, 255, 0.08));
+    transform: translateY(-1px);
+  }
+
+  .comp-title {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .comp-arrangement {
+    font-size: 0.5625rem;
+    color: var(--color-ink-muted);
+  }
+
+  .comp-link {
+    font-size: 0.625rem;
+    color: var(--color-accent-gold);
+    text-decoration: none;
+  }
+
+  .comp-link:hover {
     text-decoration: underline;
+  }
+
+  .film-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .film-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex: 1;
+  }
+
+  .film-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .film-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .film-meta {
+    font-size: 0.6875rem;
+    color: var(--color-ink-muted);
+  }
+
+  .film-genre {
+    font-size: 0.625rem;
+    color: var(--color-ink-muted);
+    opacity: 0.7;
+  }
+
+  .film-links {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: auto;
+  }
+
+  .film-links a {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--color-accent-gold);
+    text-decoration: none;
+  }
+
+  .film-links a:hover {
+    text-decoration: underline;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .creative-section {
+      padding: var(--space-4);
+    }
+
+    .album-grid {
+      gap: var(--space-2);
+    }
+
+    .album-card {
+      max-width: 120px;
+    }
+
+    .bottom-row {
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .comp-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

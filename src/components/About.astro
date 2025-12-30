@@ -1,90 +1,115 @@
 ---
 ---
 
-<section id="about" class="section section-alt">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-content">
-        <span class="section-label">About</span>
-        <h2 class="about-title">Dylan Shade</h2>
-        
-        <div class="about-text">
-          <p>
-            Software engineer specializing in AI/ML/LLM, blockchain infrastructure, and cloud architecture. 
-            Known for transforming complex technical challenges into user-centric solutions while 
-            maintaining strong focus on measurable outcomes.
-          </p>
-          <p>
-            I believe in shipping products that actually reach people. Whether it's a music theory 
-            app with 25,000+ installs, an award-winning LLM solution at JPMorgan, or documentation 
-            that helps developers build on the decentralized web — I focus on outcomes over output.
-          </p>
-          <p>
-            University of Kentucky graduate with a BS in Computer Science and Minor in Music. 
-            AWS Certified Cloud Practitioner. When I'm not coding, I compose choral music, 
-            produce albums, and explore the intersection of technology and creativity.
-          </p>
-        </div>
-
-        <div class="about-traits">
-          <div class="trait">
-            <span class="trait-label">Futuristic</span>
-            <span class="trait-desc">Vision-driven innovation</span>
-          </div>
-          <div class="trait">
-            <span class="trait-label">Analytical</span>
-            <span class="trait-desc">97th percentile logical thinking</span>
-          </div>
-          <div class="trait">
-            <span class="trait-label">Competitive</span>
-            <span class="trait-desc">2x hackathon champion</span>
-          </div>
-          <div class="trait">
-            <span class="trait-label">Creative</span>
-            <span class="trait-desc">Published composer</span>
-          </div>
-        </div>
+<section class="about-section">
+  <div class="about-layout">
+    <!-- Content on left -->
+    <div class="about-content">
+      <h2 class="about-title">Dylan Shade</h2>
+      <p class="about-tagline">Software Engineer & Composer</p>
+      
+      <div class="about-text">
+        <p>
+          I build technology for a God-centered future. Tools that empower purposeful living, not addiction.
+        </p>
+        <p>
+          2x JPMorgan Hackathon Champion. 25,000+ app users. Award-winning LLM solutions. Documentation infrastructure for the decentralized web.
+        </p>
+        <p>
+          Product-focused engineer bridging complex technology and business value. Outcomes over output.
+        </p>
+        <p>
+          University of Kentucky CS, Music Minor. AWS Certified. Choral composer. Album producer.
+        </p>
       </div>
 
-      <div class="about-image-wrapper">
-        <div class="about-image">
-          <img src="/images/headshot.jpg" alt="Dylan Shade" loading="lazy" />
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-value">25K+</span>
+          <span class="stat-label">Users</span>
         </div>
+        <div class="stat">
+          <span class="stat-value">2x</span>
+          <span class="stat-label">Hackathon Champ</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">8</span>
+          <span class="stat-label">Published Works</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">4</span>
+          <span class="stat-label">Albums</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image on right -->
+    <div class="about-image-col">
+      <div class="about-image">
+        <img src="/images/headshot.jpg" alt="Dylan Shade" loading="lazy" />
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-16);
+  .about-section {
+    height: 100%;
+    display: flex;
     align-items: center;
+    padding: var(--space-8);
   }
 
-  @media (max-width: 900px) {
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-10);
-    }
+  .about-layout {
+    display: flex;
+    gap: var(--space-12);
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
   }
 
-  .section-label {
+  /* Image column */
+  .about-image-col {
+    flex: 0 0 320px;
+  }
+
+  .about-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+  }
+
+  .about-image img {
+    width: 110%;
+    height: auto;
     display: block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-accent-gold);
-    margin-bottom: var(--space-3);
+    filter: contrast(1.05) saturate(0.9);
+    margin-left: -7%;
+    margin-top: -7%;
+  }
+
+  
+
+  /* Content column */
+  .about-content {
+    flex: 1;
+    min-width: 0;
   }
 
   .about-title {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
     font-weight: 700;
-    margin-bottom: var(--space-6);
+    margin: 0 0 var(--space-2);
+    line-height: 1.1;
+  }
+
+  .about-tagline {
+    font-size: 1rem;
+    color: var(--color-accent-gold);
+    margin: 0 0 var(--space-6);
+    font-weight: 500;
   }
 
   .about-text {
@@ -95,94 +120,74 @@
     font-size: 1rem;
     color: var(--color-ink-light);
     line-height: 1.7;
-    margin-bottom: var(--space-4);
+    margin: 0 0 var(--space-4);
   }
 
   .about-text p:last-child {
     margin-bottom: 0;
   }
 
-  .about-traits {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-4);
+  /* Stats row */
+  .about-stats {
+    display: flex;
+    gap: var(--space-8);
   }
 
-  @media (max-width: 480px) {
-    .about-traits {
-      grid-template-columns: 1fr;
-    }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 
-  .trait {
-    padding: var(--space-4);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-md);
-  }
-
-  .trait-label {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 600;
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
     color: var(--color-ink);
-    margin-bottom: var(--space-1);
+    line-height: 1;
   }
 
-  .trait-desc {
-    font-size: 0.75rem;
+  .stat-label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     color: var(--color-ink-muted);
   }
 
-  .about-image-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
-
+  /* Mobile */
   @media (max-width: 900px) {
-    .about-image-wrapper {
-      order: -1;
+    .about-layout {
+      flex-direction: column;
+      gap: var(--space-8);
+      text-align: center;
+    }
+
+    .about-image-col {
+      flex: none;
+      width: 200px;
+    }
+
+    .about-stats {
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--space-6);
     }
   }
 
-  .about-image {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-  }
+  @media (max-width: 480px) {
+    .about-section {
+      padding: var(--space-4);
+    }
 
-  .about-image::before {
-    content: '';
-    position: absolute;
-    inset: -30px;
-    background: radial-gradient(
-      ellipse at center,
-      var(--color-accent-gold-dim),
-      transparent 70%
-    );
-    z-index: 0;
-    opacity: 0.6;
-  }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
 
-  .about-image img {
-    position: relative;
-    width: 100%;
-    border-radius: var(--radius-lg);
-    filter: contrast(1.05) saturate(0.95);
-    z-index: 1;
-  }
-
-  .about-image::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 40%;
-    background: linear-gradient(to top, var(--color-paper-dark), transparent);
-    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-    z-index: 2;
-    pointer-events: none;
+    .stat {
+      align-items: center;
+    }
   }
 </style>
