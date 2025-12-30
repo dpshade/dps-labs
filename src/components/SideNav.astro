@@ -1,0 +1,211 @@
+---
+const sections = [
+  { id: "hero", label: "Home" },
+  { id: "work", label: "Work" },
+  { id: "timeline", label: "Timeline" },
+  { id: "creative", label: "Creative" },
+  { id: "about", label: "About" },
+  { id: "contact", label: "Contact" },
+];
+---
+
+<nav class="side-nav" aria-label="Section navigation">
+  <button class="side-nav-arrow up" aria-label="Previous section" data-direction="up">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 15l-6-6-6 6" />
+    </svg>
+  </button>
+  
+  <div class="side-nav-dots">
+    {sections.map((section, i) => (
+      <a 
+        href={`#${section.id}`} 
+        class="side-nav-dot" 
+        data-section={section.id}
+        aria-label={section.label}
+      >
+        <span class="dot-label">{section.label}</span>
+        <span class="dot-line"></span>
+      </a>
+    ))}
+  </div>
+  
+  <button class="side-nav-arrow down" aria-label="Next section" data-direction="down">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  </button>
+</nav>
+
+<script>
+  const sections = ['hero', 'work', 'timeline', 'creative', 'about', 'contact'];
+  const dots = document.querySelectorAll('.side-nav-dot');
+  const sideNav = document.querySelector('.side-nav');
+  let currentSection = 0;
+
+  function updateActiveSection() {
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    
+    sections.forEach((id, index) => {
+      const section = document.getElementById(id) || document.querySelector(`[data-section="${id}"]`);
+      if (!section) return;
+      
+      const rect = section.getBoundingClientRect();
+      const sectionTop = rect.top + scrollY;
+      const sectionHeight = rect.height;
+      
+      if (scrollY >= sectionTop - windowHeight / 2 && scrollY < sectionTop + sectionHeight - windowHeight / 2) {
+        currentSection = index;
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+      }
+    });
+
+    // Hide on hero section
+    if (sideNav) {
+      if (scrollY < window.innerHeight * 0.5) {
+        sideNav.classList.add('hidden');
+      } else {
+        sideNav.classList.remove('hidden');
+      }
+    }
+  }
+
+  function navigateSection(direction: string) {
+    if (direction === 'up' && currentSection > 0) {
+      currentSection--;
+    } else if (direction === 'down' && currentSection < sections.length - 1) {
+      currentSection++;
+    }
+    
+    const targetId = sections[currentSection];
+    const target = document.getElementById(targetId) || document.querySelector(`[data-section="${targetId}"]`);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // Arrow button clicks
+  document.querySelectorAll('.side-nav-arrow').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const direction = btn.getAttribute('data-direction');
+      if (direction) navigateSection(direction);
+    });
+  });
+
+  // Scroll listener
+  window.addEventListener('scroll', updateActiveSection, { passive: true });
+  updateActiveSection();
+</script>
+
+<style>
+  .side-nav {
+    position: fixed;
+    right: var(--space-6);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    z-index: 100;
+    opacity: 1;
+    transition: opacity var(--duration-slow) var(--ease-default);
+  }
+
+  .side-nav.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .side-nav {
+      display: none;
+    }
+  }
+
+  .side-nav-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    color: var(--color-ink-muted);
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-default);
+  }
+
+  .side-nav-arrow:hover {
+    color: var(--color-ink);
+  }
+
+  .side-nav-dots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) 0;
+  }
+
+  .side-nav-dot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+
+  .dot-label {
+    position: absolute;
+    right: calc(100% + var(--space-3));
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    opacity: 0;
+    transform: translateX(8px);
+    transition: 
+      opacity var(--duration-fast) var(--ease-default),
+      transform var(--duration-fast) var(--ease-default),
+      color var(--duration-fast) var(--ease-default);
+    white-space: nowrap;
+  }
+
+  .side-nav-dot:hover .dot-label {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--color-ink-light);
+  }
+
+  .side-nav-dot.active .dot-label {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--color-accent-gold);
+  }
+
+  .dot-line {
+    width: 16px;
+    height: 2px;
+    background: var(--color-ink-muted);
+    border-radius: 1px;
+    transition: 
+      background var(--duration-fast) var(--ease-default),
+      transform var(--duration-fast) var(--ease-default);
+  }
+
+  .side-nav-dot:hover .dot-line {
+    background: var(--color-ink-light);
+  }
+
+  .side-nav-dot.active .dot-line {
+    background: var(--color-accent-gold);
+    transform: scaleX(1.25);
+  }
+</style>

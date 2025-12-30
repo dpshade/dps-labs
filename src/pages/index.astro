@@ -1,0 +1,230 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import StatBar from '../components/StatBar.astro';
+import OpenSourceCard from '../components/OpenSourceCard.astro';
+import Timeline from '../components/Timeline.astro';
+import CreativeSection from '../components/CreativeSection.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import SideNav from '../components/SideNav.astro';
+
+// Projects with screenshots - displayed larger
+const showcaseProjects = [
+  {
+    name: "Canon",
+    tagline: "Intelligent chord progression builder",
+    description: "Sophisticated algorithm suggests chords categorized by harmonic tension. Build progressions with Safe, Colorful, and Bold recommendations.",
+    stat: "In Development",
+    tech: ["Tauri", "Svelte", "Rust"],
+    logo: "/images/canon-logo.png",
+    screenshot: "/images/canon-ss.png",
+    link: "https://canonchords.com/",
+    imagePosition: "bottom"
+  },
+  {
+    name: "Voyager",
+    tagline: "Decentralized Bible access",
+    description: "Censorship-resistant access to scripture translations via Arweave blockchain. Built in collaboration with a major international Bible translation organization.",
+    stat: '"Highlight of the presentation"',
+    statNote: "Partner Board Review",
+    tech: ["Arweave", "AR.IO", "JavaScript"],
+    screenshot: "/images/voyager-ss.png",
+    link: "https://voyager.ar.io/"
+  }
+];
+
+// Projects without screenshots - displayed in compact grid
+const compactProjects = [
+  {
+    name: "Scripture",
+    tagline: "Client-side semantic Bible search",
+    description: "Semantic search engine for the Bible running entirely in the browser. Find passages by meaning, not just keywords.",
+    stat: "In Development",
+    tech: ["TypeScript", "Semantic Search", "WebML"],
+    logo: "/images/go-scripture-logo.png",
+    link: "https://github.com/dpshade/scripture"
+  },
+  {
+    name: "Vivace Theory",
+    tagline: "Advanced music theory analysis",
+    description: "Identify chords from input notes with formal academic naming and slash chord notation.",
+    stat: "~5,000 installs",
+    tech: ["React Native", "iOS", "Android"],
+    logo: "/images/vivace-logo.png",
+    link: "https://apps.apple.com/us/app/vivace-theory/id1603885678"
+  },
+  {
+    name: "Chord Solver",
+    tagline: "Complex chords from root notes",
+    description: "Advanced music theory tool for musicians. Enter any root note and get comprehensive chord voicings instantly.",
+    stat: "21,000+ installs",
+    statNote: "Featured by UK College of Fine Arts",
+    tech: ["Swift", "SwiftUI", "iOS"],
+    logo: "/images/chord-solver-logo.png",
+    link: "https://apps.apple.com/us/app/chord-solver/id1564025162"
+  }
+];
+
+const openSourceProjects = [
+  {
+    name: "jj-opencode",
+    description: "OpenCode plugin enforcing JJ define-before-implement workflow with automatic workspaces",
+    link: "https://github.com/dpshade/jj-opencode"
+  },
+  {
+    name: "Permaweb LLM Fuel",
+    description: "Documentation aggregation pipeline for AI training with quality scoring system",
+    stars: 1,
+    link: "https://github.com/dpshade/permaweb-llm-fuel"
+  },
+  {
+    name: "Permaweb Glossary",
+    description: "OSS glossary with dual-mode search and 15x performance optimization. Featured in ar.io docs",
+    stars: 3,
+    link: "https://github.com/dpshade/permaweb-glossary"
+  },
+  {
+    name: "raycast-opencode",
+    description: "Raycast extension for OpenCode with session search and multi-terminal support",
+    stars: 1,
+    link: "https://github.com/dpshade/raycast-opencode"
+  },
+  {
+    name: "Pocket Prompt Suite",
+    description: "AI context management system with CLI, TUI, and Raycast integration",
+    stars: 1,
+    link: "https://github.com/dpshade/pocket-prompt-suite"
+  },
+  {
+    name: "auto-title",
+    description: "Obsidian plugin integrating Ollama/OpenAI to automatically name notes",
+    stars: 1,
+    link: "https://github.com/dpshade/auto-title"
+  }
+];
+---
+
+<Layout>
+  <Nav />
+  <SideNav />
+  <main>
+    <Hero />
+    
+    <section id="work" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Featured Work</span>
+          <h2 class="section-title">Products I've Shipped</h2>
+        </div>
+        
+        <div class="showcase-grid">
+          {showcaseProjects.map(project => (
+            <ProjectCard {...project} />
+          ))}
+        </div>
+
+        <div class="compact-grid">
+          {compactProjects.map(project => (
+            <ProjectCard {...project} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <StatBar />
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Open Source</span>
+          <h2 class="section-title">Community Contributions</h2>
+        </div>
+        
+        <div class="oss-grid">
+          {openSourceProjects.map(project => (
+            <OpenSourceCard {...project} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <Timeline />
+    <CreativeSection />
+    <About />
+    <Contact />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .section-header {
+    margin-bottom: var(--space-10);
+  }
+
+  .section-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent-gold);
+    margin-bottom: var(--space-3);
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+  }
+
+  .showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (max-width: 768px) {
+    .showcase-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .compact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+
+  @media (max-width: 900px) {
+    .compact-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .compact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .oss-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 900px) {
+    .oss-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .oss-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

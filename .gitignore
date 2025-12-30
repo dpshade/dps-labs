@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+.vercel/
+
+# JJ workspaces
+.workspaces/
+
+# Environment
+.env
+.env.local

@@ -1,0 +1,302 @@
+/* ============================================
+   DPS Labs - Global Styles & Design Tokens
+   Canon + ORBIT Unified Design System
+   ============================================ */
+
+/* === CSS RESET === */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* === DESIGN TOKENS === */
+:root {
+  /* --- COLORS (Canon warm dark base + ORBIT gold) --- */
+  --color-paper: #1C1914;
+  --color-paper-dark: #141210;
+  --color-surface: #252219;
+  --color-elevated: #2E2A23;
+  
+  /* Text (soft cream, not harsh white) */
+  --color-ink: #FAF8F3;
+  --color-ink-light: #C4BEB3;
+  --color-ink-muted: #8B8279;
+  
+  /* Accent (ORBIT gold) */
+  --color-accent-gold: #D4A574;
+  --color-accent-gold-hover: #E4B584;
+  --color-accent-gold-dim: rgba(212, 165, 116, 0.15);
+  
+  /* Borders */
+  --color-border: #3D3830;
+  --color-border-subtle: rgba(250, 248, 243, 0.08);
+  --color-border-accent: rgba(212, 165, 116, 0.3);
+  
+  /* Semantic */
+  --color-success: #5B7C5D;
+  --color-warning: #9C6B3C;
+  --color-error: #8B3A4C;
+  
+  /* --- TYPOGRAPHY --- */
+  --font-display: 'Libre Baskerville', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+  
+  /* --- SPACING (4px base) --- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+  
+  /* --- LAYOUT --- */
+  --container-max: 1200px;
+  --container-padding: var(--space-6);
+  
+  /* --- ANIMATION --- */
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-premium: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  --duration-instant: 100ms;
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-reveal: 500ms;
+  
+  /* --- BORDERS --- */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 100px;
+}
+
+/* === BASE STYLES === */
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+}
+
+/* === TYPOGRAPHY === */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* === UTILITY CLASSES === */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.section {
+  padding: var(--space-24) 0;
+}
+
+.section-alt {
+  background-color: var(--color-paper-dark);
+}
+
+/* Text colors */
+.text-primary { color: var(--color-ink); }
+.text-secondary { color: var(--color-ink-light); }
+.text-muted { color: var(--color-ink-muted); }
+.text-gold { color: var(--color-accent-gold); }
+
+/* === LINKS === */
+a {
+  transition: color var(--duration-fast) var(--ease-default);
+}
+
+a:hover {
+  color: var(--color-accent-gold);
+}
+
+/* === BUTTONS === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: 
+    background var(--duration-fast) var(--ease-default),
+    transform var(--duration-fast) var(--ease-default);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  color: var(--color-paper);
+  background: var(--color-accent-gold);
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-gold-hover);
+  transform: scale(1.02);
+}
+
+.btn-outline {
+  color: var(--color-ink);
+  background: transparent;
+  border: 1px solid var(--color-border);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-accent-gold);
+  color: var(--color-accent-gold);
+}
+
+/* === CARDS === */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: 
+    transform var(--duration-normal) var(--ease-default),
+    border-color var(--duration-slow) var(--ease-default),
+    box-shadow var(--duration-slow) var(--ease-default);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-border-accent);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* === TAGS === */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+  background: rgba(250, 248, 243, 0.05);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: fadeUp var(--duration-reveal) var(--ease-out) both;
+}
+
+.reveal-delay-1 { animation-delay: 50ms; }
+.reveal-delay-2 { animation-delay: 100ms; }
+.reveal-delay-3 { animation-delay: 150ms; }
+.reveal-delay-4 { animation-delay: 200ms; }
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--color-accent-gold);
+  outline-offset: 2px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  :root {
+    --container-padding: var(--space-5);
+  }
+  
+  .section {
+    padding: var(--space-16) 0;
+  }
+}
+
+/* Selection */
+::selection {
+  background: var(--color-accent-gold);
+  color: var(--color-paper);
+}

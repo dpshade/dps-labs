@@ -1,0 +1,245 @@
+---
+const music = {
+  albums: ["Pacific (2019)", "Glimpse (2020)", "Serenity (2021)"],
+  singles: ["Nightfall (2019)", "Vantage (2022)"],
+  production: "Walk Away — Nick Metry",
+  links: {
+    apple: "https://music.apple.com/us/artist/dylan-shade/1475065308",
+    spotify: "https://open.spotify.com/artist/dylan-shade"
+  }
+};
+
+const compositions = [
+  "The Unquiet Grave (Complete Song Cycle) — SATB divisi Choir",
+  "Mount Targon — Full Orchestra",
+  "Beyond the Sea, Mad's Orchestra, Midnight, Autumn Dusk, The Stars Above, The Battle of Blenheim — SATB Choir"
+];
+
+const film = {
+  title: "Crossing Over",
+  year: "2022",
+  role: "Sound Supervisor/Designer",
+  links: {
+    imdb: "https://www.imdb.com/title/tt17321224/",
+    youtube: "https://www.youtube.com/watch?v=gkw653LYWP0"
+  }
+};
+---
+
+<section id="creative" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Beyond Code</span>
+      <h2 class="section-title">Creative Work</h2>
+    </div>
+
+    <div class="creative-grid">
+      <div class="creative-card">
+        <div class="creative-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18V5l12-2v13" />
+            <circle cx="6" cy="18" r="3" />
+            <circle cx="18" cy="16" r="3" />
+          </svg>
+        </div>
+        <h3 class="creative-title">Music</h3>
+        <div class="creative-content">
+          <p class="creative-subtitle">Albums</p>
+          <ul class="creative-list">
+            {music.albums.map(a => <li>{a}</li>)}
+          </ul>
+          <p class="creative-subtitle">Singles</p>
+          <ul class="creative-list">
+            {music.singles.map(s => <li>{s}</li>)}
+          </ul>
+          <p class="creative-subtitle">Production</p>
+          <p class="creative-text">{music.production}</p>
+        </div>
+        <div class="creative-links">
+          <a href={music.links.apple} target="_blank" rel="noopener">Apple Music</a>
+          <a href={music.links.spotify} target="_blank" rel="noopener">Spotify</a>
+          <a href="https://www.youtube.com/@dylanpshade" target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+
+      <div class="creative-card">
+        <div class="creative-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+          </svg>
+        </div>
+        <h3 class="creative-title">Compositions</h3>
+        <div class="creative-content">
+          <p class="creative-text">8 published choral works through ArrangeMe/Sheet Music Plus</p>
+          <ul class="creative-list">
+            {compositions.map(c => <li>{c}</li>)}
+          </ul>
+        </div>
+        <div class="creative-links">
+          <a href="https://www.sheetmusicdirect.com/Search.aspx?query=Dylan+Shade" target="_blank" rel="noopener">Sheet Music</a>
+        </div>
+      </div>
+
+      <div class="creative-card">
+        <div class="creative-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18" />
+            <line x1="7" y1="2" x2="7" y2="22" />
+            <line x1="17" y1="2" x2="17" y2="22" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <line x1="2" y1="7" x2="7" y2="7" />
+            <line x1="2" y1="17" x2="7" y2="17" />
+            <line x1="17" y1="17" x2="22" y2="17" />
+            <line x1="17" y1="7" x2="22" y2="7" />
+          </svg>
+        </div>
+        <h3 class="creative-title">Film</h3>
+        <div class="creative-content">
+          <p class="creative-highlight">{film.title} ({film.year})</p>
+          <p class="creative-text">{film.role}</p>
+          <p class="creative-text">Horror/Sci-fi short film</p>
+        </div>
+        <div class="creative-links">
+          <a href={film.links.imdb} target="_blank" rel="noopener">IMDB</a>
+          <a href={film.links.youtube} target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-header {
+    margin-bottom: var(--space-12);
+  }
+
+  .section-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent-gold);
+    margin-bottom: var(--space-3);
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+  }
+
+  .creative-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 900px) {
+    .creative-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .creative-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .creative-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .creative-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent-gold-dim);
+    border-radius: var(--radius-md);
+    color: var(--color-accent-gold);
+    margin-bottom: var(--space-4);
+  }
+
+  .creative-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: var(--space-4);
+  }
+
+  .creative-content {
+    flex: 1;
+  }
+
+  .creative-subtitle {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+
+  .creative-subtitle:first-child {
+    margin-top: 0;
+  }
+
+  .creative-list {
+    list-style: none;
+  }
+
+  .creative-list li {
+    font-size: 0.875rem;
+    color: var(--color-ink-light);
+    padding-left: var(--space-4);
+    position: relative;
+    margin-bottom: var(--space-1);
+  }
+
+  .creative-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--color-ink-muted);
+  }
+
+  .creative-text {
+    font-size: 0.875rem;
+    color: var(--color-ink-light);
+    line-height: 1.5;
+  }
+
+  .creative-highlight {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: var(--space-2);
+  }
+
+  .creative-links {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .creative-links a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-accent-gold);
+  }
+
+  .creative-links a:hover {
+    text-decoration: underline;
+  }
+</style>
