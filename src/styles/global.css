@@ -300,3 +300,59 @@ a:hover {
   background: var(--color-accent-gold);
   color: var(--color-paper);
 }
+
+/* === HORIZONTAL LAYOUT === */
+body {
+  overflow: hidden; /* Prevent default vertical scroll */
+  width: 100vw;
+  height: 100vh;
+  overscroll-behavior: none;
+}
+
+.horizontal-scroller {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.panel {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+  overflow-y: auto; /* Allow internal vertical scroll if needed */
+  position: relative;
+  /* Add padding for Nav */
+  padding-top: 64px; 
+}
+
+/* Hide scrollbar for cleaner look */
+.horizontal-scroller::-webkit-scrollbar {
+  display: none;
+}
+.horizontal-scroller {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Adjust section styles for panels */
+.panel .section {
+  padding: var(--space-8) 0;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.panel .container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
