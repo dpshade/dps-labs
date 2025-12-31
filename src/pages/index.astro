@@ -181,151 +181,123 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
       <Hero />
     </section>
 
-    <!-- Panel 1: Unified Timeline -->
-    <section id="work" class="panel timeline-panel" data-panel="1">
-      <div class="timeline-header">
-        <div class="title-container">
-          <h2 class="timeline-title">
-            <span class="title-word">Time</span><span class="title-word title-accent">line</span>
-          </h2>
-          <span class="title-subtext">// journey so far</span>
-        </div>
-      </div>
-      
-      <div class="timeline-rows">
-        <!-- Featured Products - Large visual cards -->
-        <div class="featured-row" data-category="products">
-          <div class="row-header">
-            <span class="row-label">Products</span>
-            <span class="row-count">{featuredProducts.length} shipped</span>
-          </div>
-          <div class="featured-scroll" data-row="products">
-            {featuredProducts.map((project: any, i: number) => (
-              <a 
-                href={project.link} 
-                target="_blank" 
-                rel="noopener" 
-                class={`featured-card ${project.layout === 'mobile' ? 'featured-card--mobile' : ''}`} 
-                style={`--card-index: ${i};`}
-              >
-                {project.layout === 'mobile' ? (
-                  <!-- Mobile app layout: screenshot left, info right -->
-                  <Fragment>
-                    <div class="mobile-screenshot" style={project.bg ? `background: ${project.bg};` : ''}>
-                      <img src={project.screenshot} alt={project.name} />
-                      <div class="featured-overlay">
-                        <svg class="featured-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M7 17L17 7M17 7H7M17 7V17" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="mobile-info">
-                      <div class="featured-top">
-                        {project.logo && <img src={project.logo} alt="" class="featured-logo" />}
-                        <div class="featured-meta">
-                          <span class="featured-name">{project.name}</span>
-                          <span class="featured-tag">{project.tag} · {project.year}</span>
-                        </div>
-                      </div>
-                      <p class="featured-desc">{project.description}</p>
-                    </div>
-                  </Fragment>
-                ) : (
-                  <!-- Default layout: screenshot on top -->
-                  <Fragment>
-                    <div class={`featured-screenshot ${project.padded ? 'featured-screenshot--padded' : ''}`} style={project.bg ? `background: ${project.bg};` : ''}>
-                      <img src={project.screenshot} alt={project.name} class={`crop-${project.crop}`} />
-                      <div class="featured-overlay">
-                        <svg class="featured-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M7 17L17 7M17 7H7M17 7V17" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="featured-info">
-                      <div class="featured-top">
-                        {project.logo && <img src={project.logo} alt="" class="featured-logo" />}
-                        <div class="featured-meta">
-                          <span class="featured-name">{project.name}</span>
-                          <span class="featured-tag">{project.tag} · {project.year}</span>
-                        </div>
-                      </div>
-                      <p class="featured-desc">{project.description}</p>
-                    </div>
-                  </Fragment>
-                )}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <!-- Open Source -->
-        <div class="timeline-row" data-category="opensource">
-          <div class="row-header">
-            <span class="row-label">Open Source</span>
-            <span class="row-count">{openSourceProjects.length} repos</span>
-          </div>
-          <div class="row-scroll" data-row="oss">
-            {openSourceProjects.map((project: any, i: number) => (
-              <a href={project.link} target="_blank" rel="noopener" class="timeline-card" style={`background: ${project.bg}; --card-index: ${i};`}>
-                <div class="card-header">
-                  <svg class="card-gh" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                  </svg>
-                  <div class="card-meta">
-                    <span class="card-name">{project.name}</span>
-                    <span class="card-year">{project.year}</span>
-                  </div>
-                  <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <!-- Panel 1: Bento Grid Timeline -->
+    <section id="work" class="panel bento-panel" data-panel="1">
+      <div class="bento-layout">
+        <!-- Left Column: Products + OSS -->
+        <div class="bento-left">
+          <!-- Products Grid Area (compact) -->
+          <div class="bento-grid">
+            <!-- Hero Card: Canon -->
+            <a 
+              href={featuredProducts[0].link} 
+              target="_blank" 
+              rel="noopener" 
+              class="bento-card bento-hero"
+              style="--card-index: 0;"
+            >
+              <div class="bento-card-screenshot" style={`background: ${featuredProducts[0].bg || 'var(--color-surface)'};`}>
+                <img src={featuredProducts[0].screenshot} alt={featuredProducts[0].name} class="crop-contain" />
+                <div class="bento-card-overlay">
+                  <svg class="bento-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M7 17L17 7M17 7H7M17 7V17" />
                   </svg>
                 </div>
-                <p class="card-desc">{project.description}</p>
+              </div>
+              <div class="bento-card-info">
+                <div class="bento-card-meta">
+                  <span class="bento-card-name">{featuredProducts[0].name}</span>
+                  <span class="bento-card-tag">{featuredProducts[0].tag} · {featuredProducts[0].year}</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Small Cards -->
+            {featuredProducts.slice(1, 5).map((product: any, i: number) => (
+              <a 
+                href={product.link} 
+                target="_blank" 
+                rel="noopener" 
+                class="bento-card bento-small"
+                style={`--card-index: ${i + 1};`}
+              >
+                <div class="bento-card-screenshot bento-card-screenshot--compact" style={`background: ${product.bg || 'var(--color-surface)'};`}>
+                  <img src={product.screenshot} alt={product.name} class={`crop-${product.crop}`} />
+                  <div class="bento-card-overlay">
+                    <svg class="bento-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M7 17L17 7M17 7H7M17 7V17" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="bento-card-info bento-card-info--compact">
+                  <span class="bento-card-name">{product.name}</span>
+                  <span class="bento-card-tag">{product.tag}</span>
+                </div>
               </a>
             ))}
           </div>
+
+          <!-- OSS Section (expanded) -->
+          <div class="bento-oss-section">
+            <div class="bento-section-header">
+              <span class="bento-section-label">Open Source</span>
+              <span class="bento-section-count">{openSourceProjects.length} repos</span>
+            </div>
+            <div class="bento-oss-grid" data-row="oss">
+              {openSourceProjects.map((project: any, i: number) => (
+                <a href={project.link} target="_blank" rel="noopener" class="bento-oss-card" style={`background: ${project.bg}; --card-index: ${i};`}>
+                  <div class="bento-oss-header">
+                    <svg class="bento-oss-gh" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <span class="bento-oss-name">{project.name}</span>
+                    <svg class="bento-oss-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M7 17L17 7M17 7H7M17 7V17" />
+                    </svg>
+                  </div>
+                  <p class="bento-oss-desc">{project.description}</p>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <!-- Work Experience -->
-        <div class="timeline-row" data-category="experience">
-          <div class="row-header">
-            <span class="row-label">Experience</span>
-            <span class="row-count">{experience.length} roles</span>
-          </div>
-          <div class="row-scroll" data-row="experience">
-            {experience.map((item: any, i: number) => (
-              <div class="timeline-card" style={`background: ${item.bg}; --card-index: ${i};`}>
-                <div class="card-header">
-                  <div class="card-meta">
-                    <span class="card-name">{item.name}</span>
-                    <span class="card-role">{item.role}</span>
+        <!-- Right Column: Experience & Education -->
+        <div class="bento-right">
+          <!-- Experience Section -->
+          <div class="bento-experience-section">
+            <div class="bento-section-header">
+              <span class="bento-section-label">Experience</span>
+              <span class="bento-section-count">{experience.length}</span>
+            </div>
+            <div class="bento-experience-list">
+              {experience.map((item: any, i: number) => (
+                <div class="bento-exp-item" style={`--item-index: ${i};`}>
+                  <div class="bento-exp-header">
+                    <span class="bento-exp-name">{item.name}</span>
+                    <span class="bento-exp-year">{item.year}</span>
                   </div>
-                  <span class="card-year">{item.year}</span>
+                  <span class="bento-exp-role">{item.role}</span>
+                  <p class="bento-exp-desc">{item.description}</p>
                 </div>
-                <p class="card-desc">{item.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
 
-        <!-- Education -->
-        <div class="timeline-row" data-category="education">
-          <div class="row-header">
-            <span class="row-label">Education</span>
-            <span class="row-count">{education.length} degrees</span>
-          </div>
-          <div class="row-scroll" data-row="education">
-            {education.map((item: any, i: number) => (
-              <div class="timeline-card" style={`background: ${item.bg}; --card-index: ${i};`}>
-                <div class="card-header">
-                  <div class="card-meta">
-                    <span class="card-name">{item.name}</span>
-                    <span class="card-role">{item.role}</span>
-                  </div>
-                  <span class="card-year">{item.year}</span>
+          <!-- Education Section -->
+          <div class="bento-education-section">
+            <div class="bento-section-header">
+              <span class="bento-section-label">Education</span>
+            </div>
+            <div class="bento-education-grid">
+              {education.map((item: any, i: number) => (
+                <div class="bento-edu-item" style={`--item-index: ${i + experience.length};`}>
+                  <span class="bento-edu-name">{item.name}</span>
+                  <span class="bento-edu-role">{item.role}</span>
+                  <span class="bento-edu-year">{item.year}</span>
                 </div>
-                <p class="card-desc">{item.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -439,16 +411,23 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   function getHorizontalScrollers(panel: HTMLElement): { el: HTMLElement; max: number; rate: number }[] {
     const scrollers: { el: HTMLElement; max: number; rate: number }[] = [];
     
-    // Timeline panel (1): all scroll containers scroll together
+    // Bento Timeline panel (1): Check for any horizontal scrollers
     if (currentPanel === 1) {
-      // Featured products row
+      // Legacy OSS scroll container (if it exists with horizontal overflow)
+      const bentoOssScroll = panel.querySelector('.bento-oss-scroll') as HTMLElement;
+      if (bentoOssScroll) {
+        const max = bentoOssScroll.scrollWidth - bentoOssScroll.clientWidth;
+        if (max > 0) scrollers.push({ el: bentoOssScroll, max, rate: 1 });
+      }
+      
+      // Legacy featured products row (for backwards compatibility)
       const featuredScroll = panel.querySelector('.featured-scroll') as HTMLElement;
       if (featuredScroll) {
         const max = featuredScroll.scrollWidth - featuredScroll.clientWidth;
         if (max > 0) scrollers.push({ el: featuredScroll, max, rate: 1 });
       }
       
-      // Regular row-scroll elements (OSS, Experience, Education)
+      // Legacy row-scroll elements
       const rowScrolls = panel.querySelectorAll('.row-scroll') as NodeListOf<HTMLElement>;
       rowScrolls.forEach(rowScroll => {
         const max = rowScroll.scrollWidth - rowScroll.clientWidth;
@@ -1687,6 +1666,771 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     .timeline-card {
       flex: 0 0 145px;
       min-width: 145px;
+    }
+  }
+
+  /* ============================================
+     BENTO GRID TIMELINE LAYOUT
+     ============================================ */
+  
+  .bento-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    padding: var(--space-4) var(--space-6) var(--space-4);
+  }
+
+  .bento-layout {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: var(--space-5);
+    flex: 1;
+    min-height: 0;
+    height: 100%;
+  }
+
+  /* Left column: Products + OSS stacked */
+  .bento-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-width: 0;
+    min-height: 0;
+  }
+
+  /* Right column: Experience + Education stacked */
+  .bento-right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: var(--space-2);
+  }
+
+  .bento-right::-webkit-scrollbar {
+    width: 3px;
+  }
+  .bento-right::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .bento-right::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 2px;
+  }
+
+  /* ============================================
+     BENTO GRID - Products Area (compact)
+     ============================================ */
+  
+  .bento-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--space-2);
+    flex: 0 0 auto;
+    max-height: 32vh;
+  }
+
+  /* Hero card spans 2 rows in first column */
+  .bento-hero {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  /* Small cards fill remaining 3 columns in 2 rows */
+  .bento-small:nth-of-type(2) { grid-column: 2; grid-row: 1; }
+  .bento-small:nth-of-type(3) { grid-column: 3; grid-row: 1; }
+  .bento-small:nth-of-type(4) { grid-column: 4; grid-row: 1; }
+  .bento-small:nth-of-type(5) { grid-column: 2; grid-row: 2; }
+  .bento-small:nth-of-type(6) { grid-column: 3; grid-row: 2; display: none; }
+  .bento-small:nth-of-type(7) { grid-column: 4; grid-row: 2; display: none; }
+
+  /* ============================================
+     BENTO CARDS - Base Styles
+     ============================================ */
+  
+  .bento-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: 
+      transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 300ms var(--ease-out);
+  }
+
+  .panel-visible .bento-card {
+    animation: bentoReveal 450ms var(--ease-out) forwards;
+    animation-delay: calc(80ms + var(--card-index, 0) * 80ms);
+  }
+
+  @keyframes bentoReveal {
+    0% { 
+      opacity: 0; 
+      transform: translateY(12px) scale(0.98); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0) scale(1); 
+    }
+  }
+
+  .bento-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 
+      0 16px 40px -8px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.08);
+    border-color: var(--color-border-accent);
+  }
+
+  /* Shimmer sweep effect on hover */
+  .bento-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.03) 45%,
+      rgba(255, 255, 255, 0.06) 50%,
+      rgba(255, 255, 255, 0.03) 55%,
+      transparent 60%
+    );
+    transform: translateX(-100%);
+    transition: transform 600ms var(--ease-out);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .bento-card:hover::before {
+    transform: translateX(100%);
+  }
+
+  /* ============================================
+     BENTO HERO CARD (Canon - spans 2 rows)
+     ============================================ */
+  
+  .bento-hero {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bento-hero .bento-card-screenshot {
+    flex: 1;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  .bento-hero .bento-card-info {
+    padding: var(--space-3);
+  }
+
+  .bento-hero .bento-card-name {
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
+
+  .bento-hero .bento-card-desc {
+    font-size: 0.75rem;
+    -webkit-line-clamp: 2;
+    margin-top: var(--space-1);
+  }
+
+  /* ============================================
+     BENTO CARD SCREENSHOT
+     ============================================ */
+  
+  .bento-card-screenshot {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .bento-card-screenshot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .bento-card-screenshot img.crop-contain {
+    object-fit: contain;
+    padding: var(--space-2);
+  }
+
+  .bento-card-screenshot img.crop-center {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .bento-card:hover .bento-card-screenshot img {
+    transform: scale(1.04);
+  }
+
+  .bento-card:hover .bento-card-screenshot img.crop-contain {
+    transform: scale(1.02);
+  }
+
+  /* Compact screenshot for small cards */
+  .bento-card-screenshot--compact {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Overlay with arrow */
+  .bento-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 250ms var(--ease-out);
+    z-index: 1;
+  }
+
+  .bento-card:hover .bento-card-overlay {
+    opacity: 1;
+  }
+
+  .bento-card-arrow {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    color: var(--color-paper);
+    transform: scale(0.8) rotate(-5deg);
+    transition: transform 300ms var(--ease-bounce);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .bento-card:hover .bento-card-arrow {
+    transform: scale(1) rotate(0deg);
+  }
+
+  /* ============================================
+     BENTO CARD INFO
+     ============================================ */
+  
+  .bento-card-info {
+    padding: var(--space-2) var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .bento-card-info--compact {
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .bento-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .bento-card-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    transition: color 200ms;
+  }
+
+  .bento-card:hover .bento-card-name {
+    color: var(--color-accent-gold);
+  }
+
+  .bento-card-tag {
+    font-size: 0.5625rem;
+    font-family: var(--font-mono);
+    color: var(--color-ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .bento-card-desc {
+    font-size: 0.75rem;
+    color: var(--color-ink-light);
+    line-height: 1.45;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ============================================
+     BENTO OSS SECTION (expanded grid)
+     ============================================ */
+  
+  .bento-oss-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex: 1;
+    min-height: 0;
+  }
+
+  .bento-section-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding-left: var(--space-1);
+    flex-shrink: 0;
+  }
+
+  .bento-section-label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent-gold);
+  }
+
+  .bento-section-count {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    color: var(--color-ink-muted);
+    opacity: 0.5;
+  }
+
+  /* OSS Grid Layout - fills available space */
+  .bento-oss-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--space-3);
+    flex: 1;
+    min-height: 0;
+    align-content: start;
+  }
+
+  .bento-oss-card {
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    opacity: 0;
+    transform: translateY(8px);
+    border: 1px solid var(--color-border-subtle);
+    transition: 
+      transform 300ms var(--ease-out),
+      box-shadow 300ms var(--ease-out),
+      border-color 300ms var(--ease-out);
+  }
+
+  .panel-visible .bento-oss-card {
+    animation: bentoReveal 400ms var(--ease-out) forwards;
+    animation-delay: calc(250ms + var(--card-index, 0) * 40ms);
+  }
+
+  .bento-oss-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.4);
+    border-color: var(--color-border-accent);
+  }
+
+  .bento-oss-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .bento-oss-gh {
+    color: var(--color-ink-muted);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  .bento-oss-name {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 200ms;
+  }
+
+  .bento-oss-card:hover .bento-oss-name {
+    color: var(--color-accent-gold);
+  }
+
+  .bento-oss-arrow {
+    color: var(--color-ink-muted);
+    opacity: 0.3;
+    flex-shrink: 0;
+    transition: opacity 200ms, transform 200ms;
+  }
+
+  .bento-oss-card:hover .bento-oss-arrow {
+    opacity: 0.8;
+    transform: translate(2px, -2px);
+  }
+
+  .bento-oss-desc {
+    font-size: 0.6875rem;
+    color: var(--color-ink-light);
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Peer dimming */
+  .bento-oss-grid:hover .bento-oss-card:not(:hover) {
+    opacity: 0.65;
+  }
+
+  /* ============================================
+     BENTO EXPERIENCE SECTION (right column)
+     ============================================ */
+  
+  .bento-experience-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex: 1;
+    min-height: 0;
+  }
+
+  .bento-experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .bento-exp-item {
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    opacity: 0;
+    transform: translateX(12px);
+    transition: 
+      background 200ms,
+      border-color 200ms,
+      transform 300ms var(--ease-out),
+      box-shadow 300ms var(--ease-out);
+  }
+
+  .panel-visible .bento-exp-item {
+    animation: expSlide 400ms var(--ease-out) forwards;
+    animation-delay: calc(150ms + var(--item-index, 0) * 50ms);
+  }
+
+  @keyframes expSlide {
+    0% { opacity: 0; transform: translateX(12px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+
+  .bento-exp-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--color-border-accent);
+    transform: translateX(3px);
+    box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.25);
+  }
+
+  .bento-exp-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: 2px;
+  }
+
+  .bento-exp-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.3;
+  }
+
+  .bento-exp-item:hover .bento-exp-name {
+    color: var(--color-accent-gold);
+  }
+
+  .bento-exp-year {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--color-accent-gold);
+    flex-shrink: 0;
+  }
+
+  .bento-exp-role {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--color-ink-light);
+    display: block;
+    margin-bottom: var(--space-1);
+  }
+
+  .bento-exp-desc {
+    font-size: 0.625rem;
+    color: var(--color-ink-muted);
+    line-height: 1.45;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ============================================
+     BENTO EDUCATION SECTION
+     ============================================ */
+  
+  .bento-education-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    flex-shrink: 0;
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .bento-education-grid {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .bento-edu-item {
+    flex: 1;
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: 
+      background 200ms,
+      border-color 200ms,
+      transform 300ms var(--ease-out);
+  }
+
+  .panel-visible .bento-edu-item {
+    animation: expSlide 400ms var(--ease-out) forwards;
+    animation-delay: calc(350ms + var(--item-index, 0) * 50ms);
+  }
+
+  .bento-edu-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--color-border-accent);
+    transform: translateY(-2px);
+  }
+
+  .bento-edu-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.3;
+  }
+
+  .bento-edu-item:hover .bento-edu-name {
+    color: var(--color-accent-gold);
+  }
+
+  .bento-edu-role {
+    font-size: 0.625rem;
+    color: var(--color-ink-light);
+  }
+
+  .bento-edu-year {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    color: var(--color-ink-muted);
+    margin-top: auto;
+  }
+
+  /* ============================================
+     BENTO RESPONSIVE - Tablet & Mobile
+     ============================================ */
+  
+  @media (max-width: 1200px) {
+    .bento-layout {
+      grid-template-columns: 2fr 1fr;
+    }
+    
+    .bento-grid {
+      grid-template-columns: 1.2fr 1fr 1fr;
+      max-height: 36vh;
+    }
+
+    /* Only show 3 small cards on narrower screens */
+    .bento-small:nth-of-type(5) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .bento-layout {
+      grid-template-columns: 1.8fr 1fr;
+      gap: var(--space-4);
+    }
+    
+    .bento-grid {
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: var(--space-2);
+    }
+
+    .bento-exp-item {
+      padding: var(--space-2);
+    }
+
+    .bento-exp-name {
+      font-size: 0.8125rem;
+    }
+
+    .bento-exp-desc {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .bento-panel {
+      padding: var(--space-3) var(--space-4) calc(var(--space-16) + var(--space-4));
+      overflow-y: auto;
+    }
+
+    .bento-layout {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      height: auto;
+      min-height: 100%;
+    }
+
+    .bento-left {
+      flex: 0 0 auto;
+    }
+
+    .bento-right {
+      flex: 0 0 auto;
+      overflow-y: visible;
+      padding-right: 0;
+    }
+
+    .bento-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: var(--space-2);
+      max-height: none;
+    }
+
+    .bento-hero {
+      grid-column: 1 / span 2;
+      grid-row: 1;
+    }
+
+    .bento-small:nth-of-type(2) { grid-column: 1; grid-row: 2; display: flex; }
+    .bento-small:nth-of-type(3) { grid-column: 2; grid-row: 2; display: flex; }
+    .bento-small:nth-of-type(4) { display: none; }
+    .bento-small:nth-of-type(5) { display: none; }
+
+    .bento-hero .bento-card-screenshot {
+      aspect-ratio: 16 / 9;
+    }
+
+    .bento-oss-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2);
+    }
+
+    .bento-oss-card {
+      padding: var(--space-3);
+    }
+
+    .bento-experience-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2);
+    }
+
+    .bento-exp-item {
+      padding: var(--space-2);
+    }
+
+    .bento-exp-name {
+      font-size: 0.75rem;
+    }
+
+    .bento-exp-role {
+      font-size: 0.625rem;
+    }
+
+    .bento-education-grid {
+      flex-direction: row;
+    }
+
+    .bento-edu-item {
+      padding: var(--space-2);
+    }
+
+    .bento-edu-name {
+      font-size: 0.6875rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .bento-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+    }
+
+    .bento-hero {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .bento-small:nth-of-type(2) { grid-column: 1; grid-row: 2; }
+    .bento-small:nth-of-type(3) { display: none; }
+
+    .bento-oss-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bento-experience-list {
+      grid-template-columns: 1fr;
+    }
+
+    .bento-education-grid {
+      flex-direction: column;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .bento-card,
+    .bento-sidebar,
+    .bento-sidebar-item,
+    .bento-oss-card {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 
