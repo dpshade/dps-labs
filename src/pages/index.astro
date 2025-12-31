@@ -400,10 +400,14 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   const SCROLL_RESET_DELAY = 300;
   let resetTimeout: number | null = null;
 
-  // Lerp-based smooth scrolling
-  const LERP_FACTOR = 0.1;  // Lower = smoother but slower
+  // Lerp-based smooth scrolling for internal horizontal containers
+  // Increased from 0.1 to 0.18 for snappier, more responsive feel
+  // This only affects nested scroll containers, not main panel transitions
+  const LERP_FACTOR = 0.18;
   const WHEEL_SENSITIVITY = 2;
+  const LERP_THRESHOLD = 0.1;  // Reduced from 0.5 for smoother animation completion
   let isAnimating = false;
+  let lastAnimationTime = 0;
 
   // Store target scroll positions
   const scrollTargets = new Map<HTMLElement, number>();
@@ -481,29 +485,51 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     // Start animation if not running
     if (!isAnimating) {
       isAnimating = true;
+      lastAnimationTime = 0;
       requestAnimationFrame(animateScroll);
     }
   }
 
-  function animateScroll() {
+  function animateScroll(currentTime: number) {
     const panel = getCurrentPanelElement();
     if (!panel) {
       isAnimating = false;
       return;
     }
 
+    // Frame-rate independent animation using delta time
+    const deltaTime = lastAnimationTime ? Math.min((currentTime - lastAnimationTime) / 1000, 0.1) : 0.016;
+    lastAnimationTime = currentTime;
+
+    // Calculate frame-independent lerp factor
+    // Using exponential decay: factor = 1 - e^(-rate * dt)
+    // Rate of 12 gives responsive feel across 60Hz and 120Hz displays
+    const rate = 12;
+    const frameFactor = 1 - Math.exp(-rate * deltaTime);
+
     const scrollers = getHorizontalScrollers(panel);
+    
+    // BATCH ALL READS FIRST to avoid layout thrashing
+    const scrollerStates = scrollers.map(s => ({
+      el: s.el,
+      current: s.el.scrollLeft,
+      target: scrollTargets.get(s.el) ?? s.el.scrollLeft,
+      max: s.max
+    }));
+
     let stillAnimating = false;
 
-    scrollers.forEach(s => {
-      const target = scrollTargets.get(s.el) ?? s.el.scrollLeft;
-      const diff = target - s.el.scrollLeft;
+    // BATCH ALL WRITES
+    scrollerStates.forEach(({ el, current, target, max }) => {
+      const diff = target - current;
 
-      if (Math.abs(diff) > 0.5) {
-        s.el.scrollLeft += diff * LERP_FACTOR;
+      if (Math.abs(diff) > LERP_THRESHOLD) {
+        const next = current + diff * frameFactor;
+        el.scrollLeft = Math.max(0, Math.min(next, max));
         stillAnimating = true;
-      } else {
-        s.el.scrollLeft = target;
+      } else if (Math.abs(diff) > 0) {
+        // Snap to exact target when close enough
+        el.scrollLeft = target;
       }
     });
 
@@ -511,6 +537,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
       requestAnimationFrame(animateScroll);
     } else {
       isAnimating = false;
+      lastAnimationTime = 0;
     }
   }
 
@@ -629,7 +656,13 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     isScrolling = true;
     currentPanel = index;
 
+    // CRITICAL FIX: Temporarily disable scroll-snap during programmatic scroll
+    // This prevents the "double animation" where CSS snap fights with JS scrollTo
+    scroller.style.scrollSnapType = 'none';
+
     const panelWidth = window.innerWidth;
+    
+    // Use JS smooth scroll (CSS scroll-behavior removed from stylesheet)
     scroller.scrollTo({
       left: index * panelWidth,
       behavior: 'smooth'
@@ -644,13 +677,36 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
         const scrollers = getHorizontalScrollers(panel);
         scrollers.forEach(s => {
           s.el.scrollLeft = 0;
+          scrollTargets.set(s.el, 0);
         });
       }
     }, 100);
 
-    setTimeout(() => {
+    // Use scrollend event for accurate scroll completion detection
+    // This replaces the arbitrary 600ms timeout that caused state desync
+    const handleScrollEnd = () => {
+      scroller.removeEventListener('scrollend', handleScrollEnd);
+      // Re-enable scroll-snap after animation completes
+      scroller.style.scrollSnapType = 'x mandatory';
       isScrolling = false;
-    }, 600);
+    };
+
+    // Modern browsers support scrollend (baseline Dec 2025)
+    if ('onscrollend' in window) {
+      scroller.addEventListener('scrollend', handleScrollEnd, { once: true });
+      // Safety fallback in case scrollend doesn't fire
+      setTimeout(() => {
+        scroller.removeEventListener('scrollend', handleScrollEnd);
+        scroller.style.scrollSnapType = 'x mandatory';
+        isScrolling = false;
+      }, 800);
+    } else {
+      // Fallback for older browsers
+      setTimeout(() => {
+        scroller.style.scrollSnapType = 'x mandatory';
+        isScrolling = false;
+      }, 600);
+    }
   }
 
   function updateIndicators(index: number) {
@@ -807,11 +863,12 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     position: fixed;
     top: 0;
     left: 0;
+    transform: translateZ(0);
+    will-change: scroll-position;
   }
 
   /* Hide scrollbar for cleaner look */
@@ -829,7 +886,6 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     min-width: 100vw;
     height: 100vh;
     scroll-snap-align: start;
-    scroll-snap-stop: always;
     position: relative;
     background: var(--color-paper);
   }

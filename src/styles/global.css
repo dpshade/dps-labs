@@ -317,8 +317,9 @@ body {
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  transform: translateZ(0);
+  will-change: scroll-position;
 }
 
 .panel {
