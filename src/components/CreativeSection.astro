@@ -35,14 +35,14 @@ const albums = [
 ];
 
 const compositions = [
-  { title: "The Unquiet Grave (Complete Song Cycle)", arrangement: "SATB divisi Choir", id: "1874113" },
-  { title: "Mount Targon - Score Only", arrangement: "Full Orchestra", id: "1874135" },
-  { title: "The Stars Above", arrangement: "SATB Choir", id: "1874123" },
-  { title: "Beyond the Sea", arrangement: "SATB Choir", id: "1874133" },
-  { title: "Mad's Orchestra", arrangement: "SATB Choir", id: "1874128" },
-  { title: "Midnight", arrangement: "SATB Choir", id: "1874127" },
-  { title: "Autumn Dusk", arrangement: "SATB Choir", id: "1874126" },
-  { title: "The Battle of Blenheim", arrangement: "SATB Choir", id: "1874104" },
+  { title: "The Unquiet Grave (Complete Song Cycle)", arrangement: "SSAATTBB Choir", slug: "the-unquiet-grave-complete-song-cycle-23576036" },
+  { title: "Mount Targon - Score Only", arrangement: "Full Orchestra", slug: "mount-targon-score-only-23576064" },
+  { title: "The Stars Above", arrangement: "SATB Choir", slug: "the-stars-above-23576050" },
+  { title: "Beyond the Sea", arrangement: "SATB Choir", slug: "beyond-the-sea-23576056" },
+  { title: "Mad's Orchestra", arrangement: "SATB Choir", slug: "mad-s-orchestra-23576051" },
+  { title: "Midnight", arrangement: "SATB Choir", slug: "midnight-23576047" },
+  { title: "Autumn Dusk", arrangement: "SATB Choir", slug: "autumn-dusk-23576052" },
+  { title: "The Battle of Blenheim", arrangement: "SATB Choir", slug: "the-battle-of-blenheim-23576023" },
 ];
 
 const film = {
@@ -58,7 +58,7 @@ const links = {
   apple: "https://music.apple.com/us/artist/dylan-shade/1475065308",
   spotify: "https://open.spotify.com/artist/dylan-shade",
   youtube: "https://www.youtube.com/@dylanpshade",
-  sheetMusic: "https://www.sheetmusicdirect.com/Search.aspx?query=Dylan+Shade"
+  sheetMusic: "https://www.sheetmusicplus.com/en/category/arrangeme/312/dylan-shade/"
 };
 ---
 
@@ -137,7 +137,7 @@ const links = {
         <div class="comp-grid">
           {compositions.map(comp => (
             <a 
-              href={`https://www.sheetmusicdirect.com/se/ID_No/${comp.id}/Product.aspx`} 
+              href={`https://www.sheetmusicplus.com/en/product/${comp.slug}.html`} 
               target="_blank" 
               rel="noopener" 
               class="comp-item"
@@ -148,7 +148,7 @@ const links = {
           ))}
         </div>
         <a href={links.sheetMusic} target="_blank" rel="noopener" class="comp-link">
-          View all on Sheet Music Direct
+          View all on Sheet Music Plus
         </a>
       </div>
 
