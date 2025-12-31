@@ -54,4 +54,31 @@ const currentYear = new Date().getFullYear();
   .footer-links a:hover {
     color: var(--color-accent-gold);
   }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .footer {
+      padding: var(--space-6) var(--space-4);
+    }
+
+    .footer-links {
+      gap: var(--space-4);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-links {
+      gap: var(--space-3);
+    }
+  }
 </style>
