@@ -120,12 +120,12 @@ const experience = [
     name: "Forward Research",
     role: "Software Engineer",
     year: "2025",
-    description: "HyperBEAM docs, AI documentation system, AO Cookbook",
+    description: "Developer tooling, AI documentation system, AO Cookbook",
     bg: "#1e2a3a"
   },
   {
     name: "JPMorgan Chase",
-    role: "Software Engineer", 
+    role: "Software Engineer",
     year: "2023–25",
     description: "AWS migration, LLM-powered systems, 2x Hackathon Champion",
     bg: "#2a2520"
@@ -174,7 +174,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
 ---
 
 <Layout>
-  
+
   <div id="horizontal-scroller" class="horizontal-scroller">
     <!-- Panel 0: Hero -->
     <section id="hero" class="panel" data-panel="0">
@@ -195,10 +195,10 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
           <!-- Products Grid Area (compact) -->
           <div class="bento-grid">
             <!-- Hero Card: Canon -->
-            <a 
-              href={featuredProducts[0].link} 
-              target="_blank" 
-              rel="noopener" 
+            <a
+              href={featuredProducts[0].link}
+              target="_blank"
+              rel="noopener"
               class="bento-card bento-hero"
               style="--card-index: 0;"
             >
@@ -220,10 +220,10 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
 
             <!-- Small Cards -->
             {featuredProducts.slice(1, 5).map((product: any, i: number) => (
-              <a 
-                href={product.link} 
-                target="_blank" 
-                rel="noopener" 
+              <a
+                href={product.link}
+                target="_blank"
+                rel="noopener"
                 class="bento-card bento-small"
                 style={`--card-index: ${i + 1};`}
               >
@@ -349,10 +349,10 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
         <path d="M15 18l-6-6 6-6" />
       </svg>
     </button>
-    
+
     <div class="side-nav-dots">
       {panels.map((panel, i) => (
-        <button 
+        <button
           class={`side-nav-dot ${i === 0 ? 'active' : ''}`}
           data-panel={i}
           aria-label={`Go to ${panel}`}
@@ -361,15 +361,15 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
         </button>
       ))}
     </div>
-    
+
     <span id="current-label" class="current-label">Home</span>
-    
+
     <button class="side-nav-arrow next" aria-label="Next section" data-direction="next">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <path d="M9 6l6 6-6 6" />
       </svg>
     </button>
-    
+
     <!-- Progress bar integrated into pill -->
     <div class="pull-bar">
       <div id="pull-progress" class="pull-progress"></div>
@@ -389,7 +389,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   const edgeNavLeftText = document.getElementById('edge-nav-left-text');
   const edgeNavRightText = document.getElementById('edge-nav-right-text');
   const panelNames = ['Home', 'Timeline', 'Creative', 'About', 'Contact'];
-  
+
   let isScrolling = false;
   let currentPanel = 0;
   const totalPanels = 5;
@@ -404,7 +404,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   const LERP_FACTOR = 0.1;  // Lower = smoother but slower
   const WHEEL_SENSITIVITY = 2;
   let isAnimating = false;
-  
+
   // Store target scroll positions
   const scrollTargets = new Map<HTMLElement, number>();
 
@@ -416,7 +416,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   // Returns array of { element, maxScroll, rate } where rate is relative speed
   function getHorizontalScrollers(panel: HTMLElement): { el: HTMLElement; max: number; rate: number }[] {
     const scrollers: { el: HTMLElement; max: number; rate: number }[] = [];
-    
+
     // Bento Timeline panel (1): Check for any horizontal scrollers
     if (currentPanel === 1) {
       // Legacy OSS scroll container (if it exists with horizontal overflow)
@@ -425,21 +425,21 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
         const max = bentoOssScroll.scrollWidth - bentoOssScroll.clientWidth;
         if (max > 0) scrollers.push({ el: bentoOssScroll, max, rate: 1 });
       }
-      
+
       // Legacy featured products row (for backwards compatibility)
       const featuredScroll = panel.querySelector('.featured-scroll') as HTMLElement;
       if (featuredScroll) {
         const max = featuredScroll.scrollWidth - featuredScroll.clientWidth;
         if (max > 0) scrollers.push({ el: featuredScroll, max, rate: 1 });
       }
-      
+
       // Legacy row-scroll elements
       const rowScrolls = panel.querySelectorAll('.row-scroll') as NodeListOf<HTMLElement>;
       rowScrolls.forEach(rowScroll => {
         const max = rowScroll.scrollWidth - rowScroll.clientWidth;
         if (max > 0) scrollers.push({ el: rowScroll, max, rate: 1 });
       });
-      
+
       // Normalize rates so all rows scroll proportionally to their content
       if (scrollers.length > 1) {
         const maxMax = Math.max(...scrollers.map(s => s.max));
@@ -448,14 +448,14 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
         });
       }
     }
-    
+
     return scrollers;
   }
 
   // Check if all horizontal scrollers are at boundary (using target position)
   function checkHorizontalBoundary(scrollers: { el: HTMLElement; max: number; rate: number }[], direction: number): boolean {
     if (scrollers.length === 0) return true;
-    
+
     return scrollers.every(s => {
       const target = scrollTargets.get(s.el) ?? s.el.scrollLeft;
       if (direction > 0) {
@@ -471,34 +471,34 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     scrollers.forEach(s => {
       // Get current target or initialize from current position
       let target = scrollTargets.get(s.el) ?? s.el.scrollLeft;
-      
+
       // Update target position
       const scrollAmount = delta * WHEEL_SENSITIVITY * s.rate;
       target = Math.max(0, Math.min(target + scrollAmount, s.max));
       scrollTargets.set(s.el, target);
     });
-    
+
     // Start animation if not running
     if (!isAnimating) {
       isAnimating = true;
       requestAnimationFrame(animateScroll);
     }
   }
-  
+
   function animateScroll() {
     const panel = getCurrentPanelElement();
     if (!panel) {
       isAnimating = false;
       return;
     }
-    
+
     const scrollers = getHorizontalScrollers(panel);
     let stillAnimating = false;
-    
+
     scrollers.forEach(s => {
       const target = scrollTargets.get(s.el) ?? s.el.scrollLeft;
       const diff = target - s.el.scrollLeft;
-      
+
       if (Math.abs(diff) > 0.5) {
         s.el.scrollLeft += diff * LERP_FACTOR;
         stillAnimating = true;
@@ -506,7 +506,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
         s.el.scrollLeft = target;
       }
     });
-    
+
     if (stillAnimating) {
       requestAnimationFrame(animateScroll);
     } else {
@@ -536,16 +536,16 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     if (!panel) return;
 
     const scrollDirection = e.deltaY > 0 ? 1 : -1;
-    
+
     // For Work and Timeline panels - convert vertical to horizontal scroll
     const horizontalScrollers = getHorizontalScrollers(panel);
-    
+
     if (horizontalScrollers.length > 0) {
       e.preventDefault();
       if (isScrolling) return;
 
       const atBoundary = checkHorizontalBoundary(horizontalScrollers, scrollDirection);
-      
+
       if (!atBoundary) {
         // Scroll horizontally using lerp-based smoothing
         scrollHorizontalContainers(horizontalScrollers, e.deltaY);
@@ -553,7 +553,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
         hidePullIndicator();
         return;
       }
-      
+
       // At boundary - accumulate for panel switch
       handlePanelSwitchAccumulation(e, scrollDirection);
       return;
@@ -561,19 +561,19 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
 
     // Check for vertical panel-scroll containers (Creative, About, Contact)
     const panelScroll = panel.querySelector('.panel-scroll') as HTMLElement;
-    
+
     if (panelScroll) {
       const { scrollTop, scrollHeight, clientHeight } = panelScroll;
       const atTop = scrollTop <= 1;
       const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
-      
+
       // Allow natural vertical scroll if not at boundaries
       if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) {
         scrollAccumulator = 0;
         hidePullIndicator();
         return;
       }
-      
+
       e.preventDefault();
       if (isScrolling) return;
       handlePanelSwitchAccumulation(e, scrollDirection);
@@ -589,7 +589,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   function handlePanelSwitchAccumulation(e: WheelEvent, scrollDirection: number) {
     const canGoNext = currentPanel < totalPanels - 1;
     const canGoPrev = currentPanel > 0;
-    
+
     if ((scrollDirection > 0 && !canGoNext) || (scrollDirection < 0 && !canGoPrev)) {
       scrollAccumulator = 0;
       hidePullIndicator();
@@ -600,23 +600,23 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     if ((scrollAccumulator > 0 && e.deltaY < 0) || (scrollAccumulator < 0 && e.deltaY > 0)) {
       scrollAccumulator = 0;
     }
-    
+
     scrollAccumulator += e.deltaY;
-    
+
     const progress = Math.abs(scrollAccumulator) / SCROLL_THRESHOLD;
     showPullIndicator(progress);
 
     if (Math.abs(scrollAccumulator) >= SCROLL_THRESHOLD) {
       const direction = scrollAccumulator > 0 ? 1 : -1;
       const nextPanel = Math.max(0, Math.min(totalPanels - 1, currentPanel + direction));
-      
+
       if (nextPanel !== currentPanel) {
         hidePullIndicator();
         scrollToPanel(nextPanel);
         scrollAccumulator = 0;
       }
     }
-    
+
     resetTimeout = setTimeout(() => {
       scrollAccumulator = 0;
       hidePullIndicator();
@@ -625,10 +625,10 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
 
   function scrollToPanel(index: number) {
     if (!scroller || isScrolling) return;
-    
+
     isScrolling = true;
     currentPanel = index;
-    
+
     const panelWidth = window.innerWidth;
     scroller.scrollTo({
       left: index * panelWidth,
@@ -636,7 +636,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     });
 
     updateIndicators(index);
-    
+
     // Reset horizontal scrollers in new panel to start
     setTimeout(() => {
       const panel = getCurrentPanelElement();
@@ -647,7 +647,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
         });
       }
     }, 100);
-    
+
     setTimeout(() => {
       isScrolling = false;
     }, 600);
@@ -657,7 +657,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     sideNavDots.forEach((dot, i) => {
       dot.classList.toggle('active', i === index);
     });
-    
+
     navLinks.forEach((link, i) => {
       link.classList.toggle('active', i === index);
     });
@@ -673,7 +673,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
         sideNav.classList.remove('hidden');
       }
     }
-    
+
     // Update edge navigation
     if (edgeNavLeft && edgeNavLeftText) {
       if (index > 1) {
@@ -684,7 +684,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
         edgeNavLeft.classList.add('hidden');
       }
     }
-    
+
     if (edgeNavRight && edgeNavRightText) {
       if (index < totalPanels - 1) {
         edgeNavRight.classList.remove('hidden');
@@ -693,7 +693,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
         edgeNavRight.classList.add('hidden');
       }
     }
-    
+
     // Add panel-visible class for entry animations
     document.querySelectorAll('.panel').forEach((panel, i) => {
       if (i === index) {
@@ -730,7 +730,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
       }
     });
   }
-  
+
   if (edgeNavRight) {
     edgeNavRight.addEventListener('click', () => {
       if (currentPanel < totalPanels - 1) {
@@ -912,7 +912,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   .work-card-gh {
     width: 20px;
     height: 20px;
@@ -1023,7 +1023,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   /* ============================================
      UNIFIED TIMELINE PANEL
      ============================================ */
-  
+
   .timeline-panel {
     display: flex;
     flex-direction: column;
@@ -1449,7 +1449,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     text-decoration: none;
     position: relative;
     overflow: hidden;
-    transition: 
+    transition:
       transform 300ms var(--ease-out),
       box-shadow 300ms var(--ease-out);
   }
@@ -1466,20 +1466,20 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   }
 
   @keyframes cardPop {
-    0% { 
-      opacity: 0; 
-      transform: translateY(10px); 
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
     }
-    100% { 
-      opacity: 1; 
-      transform: translateY(0); 
+    100% {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
   /* Hover: subtle lift + soft shadow */
   .timeline-card:hover {
     transform: translateY(-4px);
-    box-shadow: 
+    box-shadow:
       0 12px 24px -6px rgba(0, 0, 0, 0.4),
       0 0 0 1px rgba(255, 255, 255, 0.06);
     z-index: 2;
@@ -1662,7 +1662,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
       -webkit-line-clamp: 2;
     }
   }
-  
+
   /* Extra small mobile */
   @media (max-width: 375px) {
     .featured-card {
@@ -1678,7 +1678,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   /* ============================================
      BENTO GRID TIMELINE LAYOUT
      ============================================ */
-  
+
   .bento-panel {
     display: flex;
     flex-direction: column;
@@ -1757,7 +1757,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   /* ============================================
      BENTO GRID - Products Area (compact)
      ============================================ */
-  
+
   .bento-grid {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr 1fr;
@@ -1784,7 +1784,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   /* ============================================
      BENTO CARDS - Base Styles
      ============================================ */
-  
+
   .bento-card {
     position: relative;
     display: flex;
@@ -1796,7 +1796,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     border: 1px solid var(--color-border-subtle);
     opacity: 0;
     transform: translateY(12px);
-    transition: 
+    transition:
       transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
       box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1),
       border-color 300ms var(--ease-out);
@@ -1808,19 +1808,19 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   }
 
   @keyframes bentoReveal {
-    0% { 
-      opacity: 0; 
-      transform: translateY(12px) scale(0.98); 
+    0% {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
     }
-    100% { 
-      opacity: 1; 
-      transform: translateY(0) scale(1); 
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
   }
 
   .bento-card:hover {
     transform: translateY(-6px);
-    box-shadow: 
+    box-shadow:
       0 16px 40px -8px rgba(0, 0, 0, 0.4),
       0 0 0 1px rgba(255, 255, 255, 0.08);
     border-color: var(--color-border-accent);
@@ -1852,7 +1852,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   /* ============================================
      BENTO HERO CARD (Canon - spans 2 rows)
      ============================================ */
-  
+
   .bento-hero {
     display: flex;
     flex-direction: column;
@@ -1882,7 +1882,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   /* ============================================
      BENTO CARD SCREENSHOT
      ============================================ */
-  
+
   .bento-card-screenshot {
     position: relative;
     width: 100%;
@@ -1960,7 +1960,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   /* ============================================
      BENTO CARD INFO
      ============================================ */
-  
+
   .bento-card-info {
     padding: var(--space-2) var(--space-3);
     display: flex;
@@ -2011,7 +2011,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   /* ============================================
      BENTO OSS SECTION (expanded grid)
      ============================================ */
-  
+
   .bento-oss-section {
     display: flex;
     flex-direction: column;
@@ -2063,7 +2063,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     opacity: 0;
     transform: translateY(8px);
     border: 1px solid var(--color-border-subtle);
-    transition: 
+    transition:
       transform 300ms var(--ease-out),
       box-shadow 300ms var(--ease-out),
       border-color 300ms var(--ease-out);
@@ -2138,7 +2138,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   /* ============================================
      BENTO EXPERIENCE SECTION (right column)
      ============================================ */
-  
+
   .bento-experience-section {
     display: flex;
     flex-direction: column;
@@ -2159,7 +2159,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     border: 1px solid var(--color-border-subtle);
     opacity: 0;
     transform: translateX(12px);
-    transition: 
+    transition:
       background 200ms,
       border-color 200ms,
       transform 300ms var(--ease-out),
@@ -2231,7 +2231,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   /* ============================================
      BENTO EDUCATION SECTION
      ============================================ */
-  
+
   .bento-education-section {
     display: flex;
     flex-direction: column;
@@ -2255,7 +2255,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     gap: 3px;
     opacity: 0;
     transform: translateY(8px);
-    transition: 
+    transition:
       background 200ms,
       border-color 200ms,
       transform 300ms var(--ease-out);
@@ -2298,12 +2298,12 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
   /* ============================================
      BENTO RESPONSIVE - Tablet & Mobile
      ============================================ */
-  
+
   @media (max-width: 1200px) {
     .bento-layout {
       grid-template-columns: 2fr 1fr;
     }
-    
+
     .bento-grid {
       grid-template-columns: 1.2fr 1fr 1fr;
       max-height: 36vh;
@@ -2320,7 +2320,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
       grid-template-columns: 1.8fr 1fr;
       gap: var(--space-4);
     }
-    
+
     .bento-grid {
       grid-template-columns: 1.5fr 1fr 1fr;
       gap: var(--space-2);
@@ -2677,7 +2677,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
       min-width: 44px;
     }
   }
-  
+
   /* Extra small mobile - more compact nav */
   @media (max-width: 375px) {
     .side-nav {
@@ -2706,7 +2706,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     transition: color var(--duration-fast) var(--ease-default);
     padding: 0;
   }
-  
+
   .side-nav-arrow svg {
     width: 12px;
     height: 12px;
@@ -2742,7 +2742,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     height: 8px;
     background: var(--color-ink-muted);
     border-radius: 1px;
-    transition: 
+    transition:
       background var(--duration-fast) var(--ease-default),
       transform var(--duration-fast) var(--ease-default);
   }
