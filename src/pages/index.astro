@@ -14,7 +14,7 @@ const featuredProducts = [
     description: "Intelligent chord progression builder with harmonic tension analysis.",
     screenshot: "/images/Canon Banner.png",
     link: "https://canonchords.com/",
-    tag: "Web App",
+    tag: "iOS App",
     crop: "contain",
     bg: "#F8F7F4",
     padded: true
@@ -65,7 +65,7 @@ const featuredProducts = [
     description: "Semantic Bible search running entirely in the browser.",
     screenshot: "/images/GS Banner.png",
     link: "https://github.com/dpshade/scripture",
-    tag: "Web App",
+    tag: "iOS App",
     crop: "center"
   }
 ];
@@ -508,7 +508,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     const frameFactor = 1 - Math.exp(-rate * deltaTime);
 
     const scrollers = getHorizontalScrollers(panel);
-    
+
     // BATCH ALL READS FIRST to avoid layout thrashing
     const scrollerStates = scrollers.map(s => ({
       el: s.el,
@@ -661,7 +661,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     scroller.style.scrollSnapType = 'none';
 
     const panelWidth = window.innerWidth;
-    
+
     // Use JS smooth scroll (CSS scroll-behavior removed from stylesheet)
     scroller.scrollTo({
       left: index * panelWidth,
