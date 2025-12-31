@@ -132,21 +132,21 @@ const experience = [
   },
   {
     name: "Stantec",
-    role: "Data Scientist",
+    role: "Data Science Intern",
     year: "2023",
     description: "DBScan clustering, model testing dashboard, anomaly detection",
     bg: "#252025"
   },
   {
     name: "CSI",
-    role: "Software Developer",
+    role: "Software Developer Intern",
     year: "2022",
     description: "Full-stack enterprise application development",
     bg: "#202525"
   },
   {
     name: "OpenText",
-    role: "Software Developer",
+    role: "Software Developer Intern",
     year: "2021",
     description: "Enterprise content management solutions",
     bg: "#252520"
@@ -183,6 +183,12 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
 
     <!-- Panel 1: Bento Grid Timeline -->
     <section id="work" class="panel bento-panel" data-panel="1">
+      <div class="bento-header">
+        <h2 class="bento-title">
+          <span class="title-word">Time</span><span class="title-word title-accent">line</span>
+        </h2>
+        <span class="title-subtext">// journey so far</span>
+      </div>
       <div class="bento-layout">
         <!-- Left Column: Products + OSS -->
         <div class="bento-left">
@@ -1681,6 +1687,33 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     padding: var(--space-4) var(--space-6) var(--space-4);
   }
 
+  .bento-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+    flex-shrink: 0;
+  }
+
+  .bento-title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    display: flex;
+    gap: 0.05em;
+    margin: 0;
+  }
+
+  .title-accent {
+    color: var(--color-accent-gold);
+  }
+
+  .title-subtext {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.6875rem;
+    color: var(--color-ink-muted);
+    opacity: 0.4;
+  }
+
   .bento-layout {
     display: grid;
     grid-template-columns: 2.5fr 1fr;
@@ -2110,8 +2143,7 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    flex: 1;
-    min-height: 0;
+    flex: 0 0 auto;
   }
 
   .bento-experience-list {
@@ -2205,8 +2237,6 @@ const panels = ['hero', 'work', 'creative', 'about', 'contact'];
     flex-direction: column;
     gap: var(--space-2);
     flex-shrink: 0;
-    padding-top: var(--space-2);
-    border-top: 1px solid var(--color-border-subtle);
   }
 
   .bento-education-grid {
